@@ -1,0 +1,62 @@
+bc_wallet_221007_ro4hutcp0y@BuilderCloudProvisioning.onmicrosoft.com
+e-auction
+https://github.com/PoornaChandarRao/eAuction-1.git
+https://eauction-apigateway.azurewebsites.net/eAuction/seller/getProducts
+172.18.31.45
+
+docker build -t eauction-angapp:1.0.0 .
+docker tag eauction-angapp:1.0.0 poornachalla/eauction-angapp:1.0.0
+docker push poornachalla/eauction-angapp:1.0.0
+docker run --name angapp-container -p 4200:4200 --network eauctionNetwork eauction-angapp:1.0.0
+
+docker build -t eauction-eureka-server:1.0.0 .
+docker tag eauction-eureka-server:1.0.0 poornachalla/eauction-eureka-server:1.0.0
+docker push poornachalla/eauction-eureka-server:1.0.0
+
+
+docker build -t eauction-config-server:1.1.0 .
+docker tag eauction-config-server:1.1.0 poornachalla/eauction-config-server:1.1.0
+docker push poornachalla/eauction-config-server:1.1.0
+
+docker build -t eauction-api-gateway:1.0.0 .
+docker tag eauction-api-gateway:1.0.0 poornachalla/eauction-api-gateway:1.0.0
+docker push poornachalla/eauction-api-gateway:1.0.0
+
+docker build -t eauction-buyer-consumer:1.0.0 .
+docker tag eauction-buyer-consumer:1.0.0 poornachalla/eauction-buyer-consumer:1.0.0
+docker push poornachalla/eauction-buyer-consumer:1.0.0
+
+docker build -t eauction-buyer-producer:1.0.0 .
+docker tag eauction-buyer-producer:1.0.0 poornachalla/eauction-buyer-producer:1.0.0
+docker push poornachalla/eauction-buyer-producer:1.0.0
+
+docker build -t eauction-seller-service:1.0.0 .
+docker tag eauction-seller-service:1.0.0 poornachalla/eauction-seller-service:1.0.0
+docker push poornachalla/eauction-seller-service:1.0.0
+
+>docker build -t eauction-eureka-server .
+>docker build -t eauction-config-server .
+>docker build -t eauction-api-gateway .
+>docker build -t eauction-buyer-consumer .
+>docker build -t eauction-buyer-producer .
+>docker build -t eauction-seller-service .
+
+create with specific tag
+>docker build -t eauction-seller-service:v1 .
+
+create network--
+>docker network create --driver bridge isolated
+
+>docker network inspect <networkname>
+
+
+run with network and container
+>docker run --name eureka-container -p 8761:8761 --network eauctionNetwork eauction-eureka-server
+>docker run --name config-container -p 8888:8888 --network eauctionNetwork eauction-config-server 
+>docker run --name apigateway-container -p 8050:8050 --network eauctionNetwork eauction-api-gateway
+>docker run --name buyer-producer-container -p 8081:8081 --network eauctionNetwork eauction-buyer-producer
+>docker run --name buyer-consumer-container -p 8082:8082 --network eauctionNetwork eauction-buyer-consumer
+>docker run --name seller-container -p 8083:8083 --network eauctionNetwork eauction-seller-service
+
+/subscriptions/f5cca683-2a21-495b-9e2e-30b2e7462409/resourceGroups/rg-fse3-eAuction-1/providers/Microsoft.Web/sites/eAuction-eurekaServer
+
