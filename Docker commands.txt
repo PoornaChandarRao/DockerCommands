@@ -1,0 +1,24 @@
+
+docker build -t eauction-angapp:1.0.0 .
+docker tag appName:1.0.0 <dockerhubUserName>/appName:1.0.0 
+docker push <dockerhubUserName>/appName:1.0.0 
+docker run --name name -p 4200:4200 --network networkname appName:1.0.0 
+
+docker build -t eauction-eureka-server:1.0.0 .
+docker tag eauction-eureka-server:1.0.0 <dockerhubUserName>/eauction-eureka-server:1.0.0
+docker push <dockerhubUserName>/eauction-eureka-server:1.0.0
+
+
+
+create with specific tag
+>docker build -t eauction-seller-service:v1 .
+
+create network--
+>docker network create --driver bridge isolated
+
+>docker network inspect <networkname>
+
+
+run with network and container
+>docker run --name eureka-container -p 8761:8761 --network eauctionNetwork eauction-eureka-server
+
